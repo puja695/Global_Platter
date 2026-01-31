@@ -72,7 +72,7 @@ body{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding:15px 40px;
+    padding:15px px;
     background: rgba(184,115,51,0.9);
     backdrop-filter: blur(10px);
     border-bottom:2px solid gold;
