@@ -1,12 +1,12 @@
 <?php
 $country = $_GET['country'] ?? 'Unknown';
 
-// Random names & specialties
+/* ---------- RANDOM DATA ---------- */
 $first_names = ["Alex","Liam","Emma","Olivia","Noah","Ava","Sophia","Ethan","Mia","Arjun","Priya","Li","Chen","Ivan","Olga"];
 $last_names = ["Smith","Johnson","Brown","Taylor","Patel","Sharma","Li","Chen","Petrov","Smirnova","Mehra","Kapoor"];
 $specialties = ["Italian","Indian","French","Japanese","Mexican","Chinese","Mediterranean","Continental"];
 
-// Dishes by country
+/* ---------- DISHES BY COUNTRY ---------- */
 $country_dishes = [
     "India" => ["Butter Chicken","Paneer Tikka","Biryani","Masala Dosa","Chole Bhature"],
     "Italy" => ["Pizza Margherita","Pasta Alfredo","Risotto","Lasagna","Bruschetta"],
@@ -17,32 +17,31 @@ $country_dishes = [
     "Default" => ["Signature Dish","Chef’s Special","House Special"]
 ];
 
-// Generate 3 chefs
+/* ---------- GENERATE CHEFS ---------- */
 $chefs = [];
-for($i=0;$i<3;$i++){
+for ($i = 0; $i < 3; $i++) {
 
-    $chef_name = $first_names[array_rand($first_names)]." ".$last_names[array_rand($last_names)];
-    $chef_image = "https://loremflickr.com/400/400/chef?lock=".rand(1,1000);
+    $chef_name = $first_names[array_rand($first_names)] . " " . $last_names[array_rand($last_names)];
+    $chef_image = "https://loremflickr.com/400/400/chef?lock=" . rand(1, 1000);
     $specialty = $specialties[array_rand($specialties)];
-    $rating = rand(3,5) + rand(0,1)*0.5;
+    $rating = rand(3, 5) + (rand(0, 1) * 0.5);
 
-    // Pick dishes
     $dish_pool = $country_dishes[$country] ?? $country_dishes["Default"];
     shuffle($dish_pool);
-    $dishes = array_slice($dish_pool, 0, rand(2,3));
 
     $chefs[] = [
-        "chef_name"=>$chef_name,
-        "experience"=>rand(5,15),
-        "cost"=>rand(1500,3000),
-        "image"=>$chef_image,
-        "top"=>$i==0,
-        "specialty"=>$specialty,
-        "rating"=>$rating,
-        "dishes"=>$dishes
+        "chef_name" => $chef_name,
+        "experience" => rand(5, 15),
+        "cost" => rand(1500, 3000),
+        "image" => $chef_image,
+        "top" => $i === 0,
+        "specialty" => $specialty,
+        "rating" => $rating,
+        "dishes" => array_slice($dish_pool, 0, rand(2, 3))
     ];
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,20 +50,20 @@ for($i=0;$i<3;$i++){
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
-body {
+body{
     font-family:'Poppins',sans-serif;
     margin:0;
-    background: linear-gradient(-45deg, #ffe6d6, #fff0e6, #fff0f0, #ffe6d6);
-    background-size: 400% 400%;
-    animation: gradientBG 15s ease infinite;
+    background:linear-gradient(-45deg,#ffe6d6,#fff0e6,#fff0f0,#ffe6d6);
+    background-size:400% 400%;
+    animation:gradientBG 15s ease infinite;
 }
-@keyframes gradientBG {
+@keyframes gradientBG{
     0%{background-position:0% 50%;}
     50%{background-position:100% 50%;}
     100%{background-position:0% 50%;}
 }
-.navbar {
-    background: rgba(128,0,0,0.85);
+.navbar{
+    background:rgba(128,0,0,0.85);
     color:#fff;
     padding:15px 30px;
     display:flex;
@@ -72,44 +71,37 @@ body {
     position:sticky;
     top:0;
 }
-.navbar a { color:#fff; text-decoration:none; font-weight:600; }
-.container { max-width:1200px; margin:30px auto; padding:20px; }
-h1 {
-    text-align:center;
-    color:#800000;
-    margin-bottom:40px;
-    font-size:36px;
-}
-.chef-grid {
+.navbar a{color:#fff;text-decoration:none;font-weight:600;}
+.container{max-width:1200px;margin:30px auto;padding:20px;}
+h1{text-align:center;color:#800000;font-size:36px;margin-bottom:40px;}
+
+.chef-grid{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
     gap:25px;
 }
-.chef-card {
-    background: rgba(255,255,255,0.2);
-    backdrop-filter: blur(10px);
+.chef-card{
+    background:rgba(255,255,255,0.2);
+    backdrop-filter:blur(10px);
     border-radius:20px;
     overflow:hidden;
     box-shadow:0 15px 40px rgba(0,0,0,0.2);
     transition:0.4s;
+    position:relative;
 }
-.chef-card:hover {
-    transform:translateY(-10px);
-}
-.chef-card img {
-    width:100%;
-    height:200px;
-    object-fit:cover;
-}
-.chef-details { padding:20px; }
-.chef-details h2 {
+.chef-card:hover{transform:translateY(-10px);}
+.chef-card img{width:100%;height:200px;object-fit:cover;}
+
+.chef-details{padding:20px;}
+.chef-details h2{
     margin:0 0 8px;
     font-size:24px;
     background:linear-gradient(90deg,#ff8c00,#ffd700);
     -webkit-background-clip:text;
     -webkit-text-fill-color:transparent;
 }
-.badge {
+
+.badge{
     display:inline-block;
     padding:6px 12px;
     border-radius:14px;
@@ -117,16 +109,13 @@ h1 {
     font-weight:bold;
     font-size:13px;
 }
-.exp-badge { background:#ffd700; }
-.cost-badge { background:#ff8c00; color:#fff; }
-.specialty-badge { background:#ff6347; color:#fff; }
-.dish-badge {
-    background:#fff;
-    border:1px solid #ff8c00;
-    color:#800000;
-}
-.rating { color:#ffbf00; font-weight:bold; }
-.top-badge {
+.exp-badge{background:#ffd700;}
+.cost-badge{background:#ff8c00;color:#fff;}
+.specialty-badge{background:#ff6347;color:#fff;}
+.dish-badge{background:#fff;border:1px solid #ff8c00;color:#800000;}
+.rating{color:#ffbf00;font-weight:bold;}
+
+.top-badge{
     position:absolute;
     top:12px;
     left:12px;
@@ -134,17 +123,24 @@ h1 {
     color:#fff;
     padding:6px 14px;
     border-radius:12px;
+    font-size:13px;
 }
-.book-btn {
+
+/* BOOK SLOT BUTTON */
+.book-btn{
     display:block;
-    margin-top:15px;
-    padding:12px;
+    margin-top:18px;
+    padding:14px;
     background:linear-gradient(90deg,#ff8c00,#ffd700);
     color:#000;
     text-align:center;
-    font-weight:bold;
-    border-radius:14px;
+    font-weight:700;
+    border-radius:16px;
     text-decoration:none;
+    transition:0.3s;
+}
+.book-btn:hover{
+    transform:scale(1.05);
 }
 </style>
 </head>
@@ -162,8 +158,13 @@ h1 {
 <div class="chef-grid">
 <?php foreach($chefs as $chef): ?>
 <div class="chef-card">
-    <?php if($chef['top']): ?><div class="top-badge">Top Chef</div><?php endif; ?>
-    <img src="<?php echo $chef['image']; ?>">
+
+    <?php if($chef['top']): ?>
+        <div class="top-badge">Top Chef</div>
+    <?php endif; ?>
+
+    <img src="<?php echo $chef['image']; ?>" alt="Chef">
+
     <div class="chef-details">
         <h2><?php echo $chef['chef_name']; ?></h2>
 
@@ -177,10 +178,12 @@ h1 {
             <span class="badge dish-badge"><?php echo $dish; ?></span>
         <?php endforeach; ?>
 
+        <!-- BOOK SLOT FIRST -->
         <a class="book-btn"
-           href="payments.php?chef=<?php echo urlencode($chef['chef_name']); ?>&cost=<?php echo $chef['cost']; ?>">
-           Book a Session
+           href="book_slot.php?chef=<?php echo urlencode($chef['chef_name']); ?>&cost=<?php echo $chef['cost']; ?>&country=<?php echo urlencode($country); ?>">
+            Book Slot
         </a>
+
     </div>
 </div>
 <?php endforeach; ?>
