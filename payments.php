@@ -161,7 +161,7 @@ function confirmPayment(method){
     if(chef && cost){
         alert(`✅ Payment Completed: ${method}\nYou are paying ₹${cost} for booking ${chef}!`);
     } else {
-        alert(`✅ Payment Method: ${method}\nYou have not selected a chef.`);
+        alert(`✅ Payment Method: ${method}\nBooking Confirmed.`);
     }
 }
 </script>
