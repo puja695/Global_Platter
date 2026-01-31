@@ -31,6 +31,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   <title>About Us - Global Platter</title>
   <link rel="stylesheet" href="about.css">
   <style>
+.about-container p {
+  font-size: 18px;        /* increase font size */
+  font-weight: 500;       /* slightly bold */
+  line-height: 1.8;       /* better readability */
+  color: #333;
+  text-align: justify;
+}
+
     .feedback-container {
       margin: 40px auto;
       max-width: 600px;
@@ -55,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       padding: 12px;
       border-radius: 8px;
       border: 1px solid #ccc;
-      font-size: 14px;
+      font-size: 18px;
     }
     .feedback-container button {
       background: #6b0000;
